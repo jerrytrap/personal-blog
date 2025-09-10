@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <title>Personal Blog</title>
+</head>
+<body>
+<h1>Personal Blog</h1>
+<ul th:each="article: ${articles}">
+  <li>
+    <a th:href="@{'/article/' + ${article.id}}" th:text="${article.title}"></a>
+    <span th:text="${article.publishedDate}"></span>
+  </li>
+</ul>
+</body>
+</html>
