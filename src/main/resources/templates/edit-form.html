@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+  <meta charset="UTF-8">
+  <title>Create Article</title>
+</head>
+<body>
+  <form th:action="@{'/edit/' + ${article.id}}" method="post">
+    <div>
+      <label for="title">title</label><br>
+      <input type="text" id="title" name="title" th:value="${article.title}">
+    </div>
+    <div>
+      <label for="content">content</label><br>
+      <textarea id="content" name="content" th:text="${article.content}"></textarea>
+    </div>
+    <input type="submit" value="edit">
+  </form>
+</body>
+</html>
