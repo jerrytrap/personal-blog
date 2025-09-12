@@ -1,11 +1,5 @@
 package com.sample.personalblog;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Objects;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,31 +7,30 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class ArticleController {
-	private final List<Article> articles = new ArrayList<>();
+	private final ArticleService articleService;
 
 	@GetMapping("/home")
 	public String home(Model model) {
-		model.addAttribute("articles", articles);
+		model.addAttribute("articles", articleService.getArticles());
 
 		return "home";
 	}
 
 	@GetMapping("/article/{id}")
 	public String showArticle(@PathVariable Long id, Model model) {
-		Article article = articles.stream()
-			.filter(a -> Objects.equals(a.getId(), id))
-			.findFirst()
-			.orElseThrow(() -> new NoSuchElementException());
-		model.addAttribute("article", article);
+		model.addAttribute("article", articleService.getArticle(id));
 
 		return "article";
 	}
 
 	@GetMapping("/admin")
 	public String admin(Model model) {
-		model.addAttribute("articles", articles);
+		model.addAttribute("articles", articleService.getArticles());
 
 		return "dashboard";
 	}
@@ -49,42 +42,28 @@ public class ArticleController {
 
 	@PostMapping("/create")
 	public String createArticle(@ModelAttribute ArticleCreateRequest request) {
-		LocalDateTime now = LocalDateTime.now();
-		long lastId = articles.isEmpty() ? 1L: articles.get(articles.size() - 1).getId();
-
-		Article article = new Article(lastId + 1, request.getTitle(), request.getContent(), now);
-		articles.add(article);
+		articleService.createArticle(request);
 
 		return "redirect:/admin";
 	}
 
 	@GetMapping("/edit/{id}")
 	public String editForm(@PathVariable Long id, Model model) {
-		Article article = articles.stream()
-			.filter(a -> Objects.equals(a.getId(), id))
-			.findFirst()
-			.orElseThrow(() -> new NoSuchElementException());
-		model.addAttribute("article", article);
+		model.addAttribute("article", articleService.getArticle(id));
 
 		return "edit-form";
 	}
 
 	@PostMapping("/edit/{id}")
 	public String editArticle(@PathVariable Long id, @ModelAttribute ArticleEditRequest request) {
-		Article article = articles.stream()
-			.filter(a -> Objects.equals(a.getId(), id))
-			.findFirst()
-			.orElseThrow(() -> new NoSuchElementException());
-
-		article.setTitle(request.getTitle());
-		article.setContent(request.getContent());
+		articleService.editArticle(id, request);
 
 		return "redirect:/admin";
 	}
 
 	@GetMapping("/delete/{id}")
 	public String deleteArticle(@PathVariable Long id) {
-		articles.removeIf(a -> Objects.equals(a.getId(), id));
+		articleService.deleteArticle(id);
 
 		return "redirect:/admin";
 	}
