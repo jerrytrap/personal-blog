@@ -3,6 +3,7 @@ package com.sample.personalblog;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
@@ -28,7 +29,7 @@ public class ArticleController {
 		Article article = articles.stream()
 			.filter(a -> Objects.equals(a.getId(), id))
 			.findFirst()
-			.get();
+			.orElseThrow(() -> new NoSuchElementException());
 		model.addAttribute("article", article);
 
 		return "article";
@@ -62,7 +63,7 @@ public class ArticleController {
 		Article article = articles.stream()
 			.filter(a -> Objects.equals(a.getId(), id))
 			.findFirst()
-			.get();
+			.orElseThrow(() -> new NoSuchElementException());
 		model.addAttribute("article", article);
 
 		return "edit-form";
@@ -73,7 +74,7 @@ public class ArticleController {
 		Article article = articles.stream()
 			.filter(a -> Objects.equals(a.getId(), id))
 			.findFirst()
-			.get();
+			.orElseThrow(() -> new NoSuchElementException());
 
 		article.setTitle(request.getTitle());
 		article.setContent(request.getContent());
