@@ -1,9 +1,12 @@
-package com.sample.personalblog;
+package com.sample.personalblog.auth;
 
 import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.sample.personalblog.user.User;
+import com.sample.personalblog.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

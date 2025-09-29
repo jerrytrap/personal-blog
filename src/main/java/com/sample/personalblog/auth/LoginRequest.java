@@ -1,4 +1,4 @@
-package com.sample.personalblog;
+package com.sample.personalblog.auth;
 
 import lombok.Getter;
 import lombok.Setter;

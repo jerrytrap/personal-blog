@@ -1,4 +1,4 @@
-package com.sample.personalblog;
+package com.sample.personalblog.auth;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

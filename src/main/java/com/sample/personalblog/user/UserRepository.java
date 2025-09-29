@@ -1,4 +1,4 @@
-package com.sample.personalblog;
+package com.sample.personalblog.user;
 
 import java.util.List;
 import java.util.Objects;

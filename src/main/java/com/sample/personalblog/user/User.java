@@ -1,4 +1,4 @@
-package com.sample.personalblog;
+package com.sample.personalblog.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
