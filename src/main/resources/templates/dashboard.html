@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Personal Blog</h1>
-<span><a th:href="@{/create}">Add</a></span>
+<a th:href="@{/logout}">Logout</a>
+<a th:href="@{/create}">Add</a>
 <ul th:each="article: ${articles}">
   <li>
     <a th:href="@{'/article/' + ${article.id}}" th:text="${article.title}"></a>
