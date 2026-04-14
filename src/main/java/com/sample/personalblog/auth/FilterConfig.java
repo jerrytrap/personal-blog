@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FilterConfig {
 	@Bean
-	public FilterRegistrationBean<CustomAuthenticationFilter> myFilter() {
+	public FilterRegistrationBean<CustomAuthenticationFilter> authFilter() {
 		FilterRegistrationBean<CustomAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
 		registrationBean.setFilter(new CustomAuthenticationFilter());
 		registrationBean.addUrlPatterns("/*");

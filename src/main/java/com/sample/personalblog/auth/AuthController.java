@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
@@ -20,10 +21,11 @@ public class AuthController {
 	}
 
 	@PostMapping("/login")
-	public String login(@ModelAttribute LoginRequest loginRequest, HttpSession session, Model model) {
+	public String login(@ModelAttribute LoginRequest loginRequest, HttpServletRequest request, Model model) {
 		try {
 			authService.login(loginRequest);
-			session.setAttribute("loggedInUser", loginRequest.getUsername());
+			reissueSession(request, loginRequest.getUsername());
+
 			return "redirect:/admin";
 		} catch (RuntimeException e) {
 			model.addAttribute("error", "Wrong ID or Password");
@@ -35,5 +37,15 @@ public class AuthController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/home";
+	}
+
+	private void reissueSession(HttpServletRequest request, String username) {
+		HttpSession oldSession = request.getSession(false);
+		if (oldSession != null) {
+			oldSession.invalidate();
+		}
+
+		HttpSession newSession = request.getSession(true);
+		newSession.setAttribute(SessionConstant.LOGIN_USER, username);
 	}
 }

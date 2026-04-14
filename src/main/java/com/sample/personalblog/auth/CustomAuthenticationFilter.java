@@ -18,13 +18,23 @@ public class CustomAuthenticationFilter extends HttpFilter {
 	) throws IOException, ServletException {
 		HttpSession session = request.getSession(false);
 		String path = request.getRequestURI();
+		boolean isLoggedIn = (session != null && session.getAttribute(SessionConstant.LOGIN_USER) != null);
 
-		if (path.startsWith("/home") || path.startsWith("/article") || path.startsWith("/login")) {
+		if (path.equals("/home") || path.startsWith("/article") || path.equals("/logout")) {
 			chain.doFilter(request, response);
 			return;
 		}
 
-		if (session == null || session.getAttribute("loggedInUser") == null) {
+		if (path.equals("/login")) {
+			if (isLoggedIn) {
+				response.sendRedirect("/admin");
+				return;
+			}
+			chain.doFilter(request, response);
+			return;
+		}
+
+		if (!isLoggedIn) {
 			response.sendRedirect("/login");
 			return;
 		}
