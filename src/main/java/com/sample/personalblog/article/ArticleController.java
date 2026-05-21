@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 public class ArticleController {
 	private final ArticleService articleService;
 
-	@GetMapping("/home")
+	@GetMapping("/")
 	public String home(Model model) {
 		model.addAttribute("articles", articleService.getArticles());
 

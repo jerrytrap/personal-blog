@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-public class CustomAuthenticationFilter extends HttpFilter {
+public class SessionAuthenticationFilter extends HttpFilter {
 	@Override
 	public void doFilter(
 		HttpServletRequest request,
@@ -20,7 +20,7 @@ public class CustomAuthenticationFilter extends HttpFilter {
 		String path = request.getRequestURI();
 		boolean isLoggedIn = (session != null && session.getAttribute(SessionConstant.LOGIN_USER) != null);
 
-		if (path.equals("/home") || path.startsWith("/article") || path.equals("/logout")) {
+		if (path.equals("/") || path.startsWith("/article") || path.equals("/logout")) {
 			chain.doFilter(request, response);
 			return;
 		}

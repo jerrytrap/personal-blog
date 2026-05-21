@@ -33,6 +33,6 @@ public class ArticleRepository {
 	}
 
 	private Long getLastId() {
-		return articles.isEmpty() ? 1L: articles.get(articles.size() - 1).getId();
+		return articles.isEmpty() ? 0L: articles.get(articles.size() - 1).getId();
 	}
 }

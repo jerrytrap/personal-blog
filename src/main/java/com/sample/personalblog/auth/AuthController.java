@@ -22,12 +22,10 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public String login(@ModelAttribute LoginRequest loginRequest, HttpServletRequest request, Model model) {
-		try {
-			authService.login(loginRequest);
+		if (authService.authenticate(loginRequest)) {
 			reissueSession(request, loginRequest.getUsername());
-
 			return "redirect:/admin";
-		} catch (RuntimeException e) {
+		} else {
 			model.addAttribute("error", "Wrong ID or Password");
 			return "login";
 		}
@@ -36,7 +34,7 @@ public class AuthController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/home";
+		return "redirect:/";
 	}
 
 	private void reissueSession(HttpServletRequest request, String username) {
