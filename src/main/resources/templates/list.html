@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <title>Personal Blog</title>
+</head>
+<body>
+<h1>Personal Blog</h1>
+<a th:href="@{/create}">추가</a>
+<ul th:each="article: ${articles}">
+    <li>
+        <a th:href="@{'/article/' + ${article.id}}" th:text="${article.title}"></a>
+        <span th:text="${article.publishedDate}"></span>
+        <span><a th:href="@{'/edit/' + ${article.id}}">수정</a></span>
+        <form th:action="@{'/delete/' + ${article.id}}" method="post">
+            <button type="submit">삭제</button>
+        </form>
+    </li>
+</ul>
+</body>
+</html>
