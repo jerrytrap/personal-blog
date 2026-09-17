@@ -1,8 +1,8 @@
 package com.example.personalblog.article;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -14,38 +14,28 @@ public class ArticleService {
 	private final ArticleRepository articleRepository;
 
 	public List<Article> getArticles() {
-		return articleRepository.getArticles();
+		return articleRepository.findAll();
 	}
 
-	public Article getArticle(Long id) {
-		return articleRepository.getArticle(id)
+	public Article getArticle(UUID id) {
+		return articleRepository.findById(id)
 			.orElseThrow(() -> new NoSuchElementException());
 	}
 
 	public void createArticle(ArticleCreateRequest request) {
-		LocalDateTime now = LocalDateTime.now();
+		Article article = new Article(request.getTitle(), request.getContent());
 
-		Article article = new Article(
-			null,
-			request.getTitle(),
-			request.getContent(),
-			now
-		);
-
-		articleRepository.create(article);
+		articleRepository.save(article);
 	}
 
-	public void editArticle(Long id, ArticleEditRequest request) {
-		Article article = articleRepository.getArticle(id)
-			.orElseThrow(() -> new NoSuchElementException());
+	public void updateArticle(UUID id, ArticleUpdateRequest request) {
+		Article article = getArticle(id);
 
-		article.setTitle(request.getTitle());
-		article.setContent(request.getContent());
-
-		// articleRepository.edit(article);
+		article.update(request.getTitle(), request.getContent());
+		articleRepository.save(article);
 	}
 
-	public void deleteArticle(Long id) {
-		articleRepository.delete(id);
+	public void deleteArticle(UUID id) {
+		articleRepository.deleteById(id);
 	}
 }

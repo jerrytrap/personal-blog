@@ -11,7 +11,7 @@
     <li>
         <a th:href="@{'/article/' + ${article.id}}" th:text="${article.title}"></a>
         <span th:text="${article.publishedDate}"></span>
-        <span><a th:href="@{'/edit/' + ${article.id}}">수정</a></span>
+        <span><a th:href="@{'/update/' + ${article.id}}">수정</a></span>
         <form th:action="@{'/delete/' + ${article.id}}" method="post">
             <button type="submit">삭제</button>
         </form>

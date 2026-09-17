@@ -5,7 +5,7 @@
     <title>Create Article</title>
 </head>
 <body>
-<form th:action="@{'/edit/' + ${article.id}}" method="post">
+<form th:action="@{'/update/' + ${article.id}}" method="post">
     <div>
         <label for="title">title</label><br>
         <input type="text" id="title" name="title" th:value="${article.title}">

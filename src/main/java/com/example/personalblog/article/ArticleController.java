@@ -1,5 +1,7 @@
 package com.example.personalblog.article;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class ArticleController {
 	}
 
 	@GetMapping("/article/{id}")
-	public String showArticle(@PathVariable Long id, Model model) {
+	public String showArticle(@PathVariable UUID id, Model model) {
 		model.addAttribute("article", articleService.getArticle(id));
 
 		return "detail";
@@ -40,22 +42,22 @@ public class ArticleController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/edit/{id}")
-	public String editForm(@PathVariable Long id, Model model) {
+	@GetMapping("/update/{id}")
+	public String updateForm(@PathVariable UUID id, Model model) {
 		model.addAttribute("article", articleService.getArticle(id));
 
-		return "edit";
+		return "update";
 	}
 
-	@PostMapping("/edit/{id}")
-	public String editArticle(@PathVariable Long id, @ModelAttribute ArticleEditRequest request) {
-		articleService.editArticle(id, request);
+	@PostMapping("/update/{id}")
+	public String updateArticle(@PathVariable UUID id, @ModelAttribute ArticleUpdateRequest request) {
+		articleService.updateArticle(id, request);
 
 		return "redirect:/";
 	}
 
 	@PostMapping("/delete/{id}")
-	public String deleteArticle(@PathVariable Long id) {
+	public String deleteArticle(@PathVariable UUID id) {
 		articleService.deleteArticle(id);
 
 		return "redirect:/";
