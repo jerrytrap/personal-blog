@@ -5,16 +5,16 @@
     <title>Create Article</title>
 </head>
 <body>
-<form th:action="@{/create}" method="post">
+<form th:action="@{'/admin/update/' + ${article.id}}" method="post">
     <div>
         <label for="title">title</label><br>
-        <input type="text" id="title" name="title">
+        <input type="text" id="title" name="title" th:value="${article.title}">
     </div>
     <div>
         <label for="content">content</label><br>
-        <textarea id="content" name="content"></textarea>
+        <textarea id="content" name="content" th:text="${article.content}"></textarea>
     </div>
-    <input type="submit" value="create">
+    <input type="submit" value="edit">
 </form>
 </body>
 </html>

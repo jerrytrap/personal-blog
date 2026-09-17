@@ -17,49 +17,49 @@ public class ArticleController {
 	private final ArticleService articleService;
 
 	@GetMapping("/")
-	public String home(Model model) {
+	public String list(Model model) {
 		model.addAttribute("articles", articleService.getArticles());
 
-		return "list";
+		return "articles/list";
 	}
 
-	@GetMapping("/article/{id}")
-	public String showArticle(@PathVariable UUID id, Model model) {
+	@GetMapping("/articles/{id}")
+	public String detail(@PathVariable UUID id, Model model) {
 		model.addAttribute("article", articleService.getArticle(id));
 
-		return "detail";
+		return "articles/detail";
 	}
 
-	@GetMapping("/create")
+	@GetMapping("/admin/create")
 	public String createForm() {
-		return "create";
+		return "articles/create";
 	}
 
-	@PostMapping("/create")
+	@PostMapping("/admin/create")
 	public String createArticle(@ModelAttribute ArticleCreateRequest request) {
 		articleService.createArticle(request);
 
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 
-	@GetMapping("/update/{id}")
+	@GetMapping("/admin/update/{id}")
 	public String updateForm(@PathVariable UUID id, Model model) {
 		model.addAttribute("article", articleService.getArticle(id));
 
-		return "update";
+		return "articles/update";
 	}
 
-	@PostMapping("/update/{id}")
+	@PostMapping("/admin/update/{id}")
 	public String updateArticle(@PathVariable UUID id, @ModelAttribute ArticleUpdateRequest request) {
 		articleService.updateArticle(id, request);
 
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 
-	@PostMapping("/delete/{id}")
+	@PostMapping("/admin/delete/{id}")
 	public String deleteArticle(@PathVariable UUID id) {
 		articleService.deleteArticle(id);
 
-		return "redirect:/";
+		return "redirect:/admin";
 	}
 }
