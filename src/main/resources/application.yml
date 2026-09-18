@@ -5,3 +5,8 @@ spring:
 admin:
   username: ${ADMIN_USERNAME}
   password: ${ADMIN_PASSWORD}
+
+# 인증 방식
+# basic / session 중 선택 가능
+auth:
+  mode: session

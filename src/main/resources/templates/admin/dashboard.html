@@ -6,6 +6,9 @@
 </head>
 <body>
 <h1>Personal Blog 관리자 페이지</h1>
+<form th:action="@{'/logout'}" method="post">
+    <button type="submit">로그아웃</button>
+</form>
 <a th:href="@{/admin/create}">추가</a>
 <ul th:each="article: ${articles}">
     <li>

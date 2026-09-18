@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -15,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
+@ConditionalOnProperty(name = "auth.mode", havingValue = "basic")
 public class BasicAuthFilter extends OncePerRequestFilter {
 	private final AuthService authService;
 	private static final String BASIC_AUTH_PREFIX = "Basic ";
