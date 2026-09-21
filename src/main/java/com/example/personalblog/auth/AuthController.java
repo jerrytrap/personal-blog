@@ -1,5 +1,7 @@
 package com.example.personalblog.auth;
 
+import java.util.UUID;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,5 +47,6 @@ public class AuthController {
 
 		HttpSession newSession = request.getSession(true);
 		newSession.setAttribute(SessionConstant.LOGIN_USER, username);
+		newSession.setAttribute(SessionConstant.CSRF_TOKEN, UUID.randomUUID().toString());
 	}
 }

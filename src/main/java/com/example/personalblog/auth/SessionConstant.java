@@ -4,4 +4,5 @@ public class SessionConstant {
 	private SessionConstant() {}
 	
 	public static final String LOGIN_USER = "loggedInUser";
+	public static final String CSRF_TOKEN = "csrfToken";
 }

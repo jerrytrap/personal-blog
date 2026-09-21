@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.personalblog.auth.SessionConstant;
+
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -31,7 +34,8 @@ public class ArticleController {
 	}
 
 	@GetMapping("/admin/create")
-	public String createForm() {
+	public String createForm(HttpSession session, Model model) {
+		model.addAttribute("csrfToken", session.getAttribute(SessionConstant.CSRF_TOKEN));
 		return "articles/create";
 	}
 
@@ -43,8 +47,9 @@ public class ArticleController {
 	}
 
 	@GetMapping("/admin/update/{id}")
-	public String updateForm(@PathVariable UUID id, Model model) {
+	public String updateForm(@PathVariable UUID id, HttpSession session, Model model) {
 		model.addAttribute("article", articleService.getArticle(id));
+		model.addAttribute("csrfToken", session.getAttribute(SessionConstant.CSRF_TOKEN));
 
 		return "articles/update";
 	}

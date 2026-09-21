@@ -7,6 +7,7 @@
 <body>
 <h1>Personal Blog 관리자 페이지</h1>
 <form th:action="@{'/logout'}" method="post">
+    <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
     <button type="submit">로그아웃</button>
 </form>
 <a th:href="@{/admin/create}">추가</a>
@@ -16,6 +17,7 @@
         <span th:text="${article.publishedDate}"></span>
         <span><a th:href="@{'/admin/update/' + ${article.id}}">수정</a></span>
         <form th:action="@{'/admin/delete/' + ${article.id}}" method="post">
+            <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
             <button type="submit">삭제</button>
         </form>
     </li>
