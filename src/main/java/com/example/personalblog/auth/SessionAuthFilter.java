@@ -2,7 +2,6 @@ package com.example.personalblog.auth;
 
 import java.io.IOException;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -15,7 +14,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Component
 @Order(1)
-@ConditionalOnProperty(name = "auth.mode", havingValue = "session")
 public class SessionAuthFilter extends OncePerRequestFilter {
 	@Override
 	public void doFilterInternal(

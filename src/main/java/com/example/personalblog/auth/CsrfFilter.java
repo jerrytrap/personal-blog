@@ -16,7 +16,6 @@ import jakarta.servlet.http.HttpSession;
 
 @Component
 @Order(2)
-@ConditionalOnProperty(name = "auth.mode", havingValue = "session")
 public class CsrfFilter extends OncePerRequestFilter {
 	private static final Set<String> UNSAFE_METHODS = Set.of("POST", "PUT", "DELETE", "PATCH");
 
