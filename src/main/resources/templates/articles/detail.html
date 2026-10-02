@@ -2,11 +2,12 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="kr">
 <head>
     <meta charset="UTF-8">
-    <title>Article</title>
+    <title>Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <h1 th:text="${article.title}"></h1>
-<p th:text="${article.publishedDate}"></p>
+<p class="article-date" th:text="${#temporals.format(article.publishedDate, 'yyyy-MM-dd HH:mm')}"></p>
 <p th:text="${article.content}"></p>
 </body>
 </html>

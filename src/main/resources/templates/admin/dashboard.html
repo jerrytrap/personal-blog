@@ -3,23 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <title>Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Personal Blog 관리자 페이지</h1>
-<form th:action="@{'/logout'}" method="post">
-    <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
-    <button type="submit">로그아웃</button>
-</form>
-<a th:href="@{/admin/create}">추가</a>
-<ul th:each="article: ${articles}">
-    <li>
-        <a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}"></a>
-        <span th:text="${article.publishedDate}"></span>
-        <span><a th:href="@{'/admin/update/' + ${article.id}}">수정</a></span>
-        <form th:action="@{'/admin/delete/' + ${article.id}}" method="post">
-            <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
-            <button type="submit">삭제</button>
-        </form>
+<div class="page-header">
+    <h1>Personal Blog 관리자 페이지</h1>
+    <form th:action="@{'/logout'}" method="post">
+        <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
+        <button type="submit">로그아웃</button>
+    </form>
+</div>
+
+<a class="button" th:href="@{/admin/create}">글 추가</a>
+<ul>
+    <li th:each="article: ${articles}" class="article-row">
+        <div>
+            <a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}"></a>
+        </div>
+        <div class="article-actions">
+            <span class="article-date" th:text="${#temporals.format(article.publishedDate, 'yyyy-MM-dd HH:mm')}"></span>
+            <a class="button button-secondary" th:href="@{'/admin/update/' + ${article.id}}">수정</a>
+            <form class="delete-form" th:action="@{'/admin/delete/' + ${article.id}}"
+                  method="post"
+                  onsubmit="return confirm('이 글을 삭제할까요?');">
+                <input type="hidden" name="csrfToken" th:value="${csrfToken}" />
+                <button class="button-danger" type="submit">삭제</button>
+            </form>
+        </div>
     </li>
 </ul>
 </body>

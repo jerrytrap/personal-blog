@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="kr">
 <head>
     <meta charset="UTF-8">
-    <title>Create Article</title>
+    <title>Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 <form th:action="@{/admin/create}" method="post">
@@ -15,7 +16,7 @@
         <label for="content">content</label><br>
         <textarea id="content" name="content"></textarea>
     </div>
-    <input type="submit" value="create">
+    <input type="submit" value="추가">
 </form>
 </body>
 </html>

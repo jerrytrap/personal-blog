@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <title>Personal Blog</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Personal Blog</h1>
-<a th:href="@{/admin}">관리</a>
+<div class="page-header">
+    <h1>Personal Blog</h1>
+    <a th:href="@{/admin}">관리</a>
+</div>
 <ul th:each="article: ${articles}">
-    <li>
+    <li class="article-row">
         <a th:href="@{'/articles/' + ${article.id}}" th:text="${article.title}"></a>
-        <span th:text="${article.publishedDate}"></span>
+        <span class="article-date" th:text="${#temporals.format(article.publishedDate, 'yyyy-MM-dd HH:mm')}"></span>
     </li>
 </ul>
 </body>
